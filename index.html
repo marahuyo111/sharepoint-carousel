@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SharePoint Carousel</title>
+    <style>
+        /* Basic styling for carousel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
 
+        .carousel-slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .carousel-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            animation: fadeInOut 4s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="carousel">
+    <div class="carousel-slide active">
+        <img src="https://via.placeholder.com/800x400?text=Slide+1" alt="Slide 1">
+        <div class="carousel-text">Text for Slide 1</div>
+    </div>
+    <div class="carousel-slide">
+        <img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2">
+        <div class="carousel-text">Text for Slide 2</div>
+    </div>
+    <div class="carousel-slide">
+        <img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Slide 3">
+        <div class="carousel-text">Text for Slide 3</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".carousel-slide");
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove("active");
+                slide.style.opacity = "0";
+            });
+            slides[index].classList.add("active");
+            slides[index].style.opacity = "1";
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Initial slide display
+        showSlide(currentSlide);
+        
+        // Change slide every 4 seconds
+        setInterval(nextSlide, 4000);
+    });
+</script>
+
+</body>
+</html>
